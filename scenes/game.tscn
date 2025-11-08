@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://djxe37cf2d1mk" path="res://textures/background.png" id="1_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://b3r7rykyto3k8" path="res://scenes/world.tscn" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://chqp4gnwyhdlk" path="res://scripts/background.gd" id="2_u5sy4"]
-[ext_resource type="PackedScene" path="res://scenes/shield.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://cxb6mbx0owd4h" path="res://scenes/shield.tscn" id="2_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://bda28cvjpnp6u" path="res://textures/stars1.png" id="5_dinhu"]
 [ext_resource type="Texture2D" uid="uid://dmblpnkwab0qe" path="res://textures/pauseicon.png" id="8_dinhu"]
 [ext_resource type="Script" uid="uid://dgfvsuvf8rdid" path="res://scripts/pauseBtn.gd" id="8_gee14"]
@@ -259,8 +259,6 @@ libraries = {
 }
 
 [node name="world" parent="." instance=ExtResource("1_uwrxv")]
-
-[node name="world2" parent="." instance=ExtResource("1_uwrxv")]
 
 [node name="Shield" parent="." instance=ExtResource("2_yqjtg")]
 

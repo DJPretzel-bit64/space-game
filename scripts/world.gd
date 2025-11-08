@@ -1,7 +1,7 @@
 extends Node2D
 
 # define variables needed by this class
-@export var asteroid_spawn_distance: int = 500
+@export var asteroid_spawn_distance: int = 750
 @export var asteroid_scene: PackedScene
 @export var crater_radius: int = 15
 
@@ -11,10 +11,10 @@ var rng = RandomNumberGenerator.new()
 # define a function to spawn asteroids, this is tied to the AsteroidSpawnTimer timeout signal
 func spawn_asteroid():
 	# generate a random unit vector for the direction we want to spawn the asteroid
-	var direction = Vector2(rng.randf_range(-1.0, 1.0), rng.randf_range(-1.0, 1.0)).normalized()
+	var direction = random_unit_vector()
 	
 	# convert that direction to a position
-	var asteroid_position = asteroid_spawn_distance * direction
+	var asteroid_position = asteroid_spawn_distance * random_unit_vector()
 	
 	# instantiate the asteroid to spawn it
 	var asteroid : Asteroid = asteroid_scene.instantiate()
@@ -27,18 +27,28 @@ func spawn_asteroid():
 	
 	# add the asteroid to our parent (the root node)
 	get_parent().add_child(asteroid)
+	
+	$AsteroidSpawnTimer.wait_time *= 0.995
+
+func random_unit_vector() -> Vector2:
+	return Vector2.from_angle(rng.randf_range(0, 2 * PI))
+
+func random_in_unit_sphere() -> Vector2:
+	return Vector2.from_angle(rng.randf_range(0, 2 * PI)) * rng.randf()
 
 func on_hit(body: Area2D):
 	if body.get_parent() is Asteroid:
 		var asteroid = body.get_parent() as Asteroid
 		asteroid.queue_free()
 		
+		$Camera2D.apply_shake()
+		
 		hollow_texture(asteroid.position)
 		recompute_collision_shape()
 
-func on_lose_hit(body: Area2D):
-	if body.get_parent() is Asteroid:
-		get_tree().paused = true
+#func on_lose_hit(body: Area2D):
+	#if body.get_parent() is Asteroid:
+		#get_tree().paused = true
 
 func hollow_texture(crater_position: Vector2):
 	var image: Image = $Earth.texture.get_image()
@@ -59,7 +69,6 @@ func hollow_texture(crater_position: Vector2):
 		de_material.set_shader_parameter("earth", texture)
 
 func recompute_collision_shape():
-	# IDK, it works, don't touch 🔪🔪🔪
 	var texture: Texture = $Earth.texture
 	
 	for child in $Area2D.get_children():
@@ -67,25 +76,95 @@ func recompute_collision_shape():
 	
 	var bm = BitMap.new()
 	bm.create_from_image_alpha(texture.get_image())
-	# in the original script, it was Rect2(position.x, position.y ...)
 	var rect = Rect2(0, 0, texture.get_width(), texture.get_height())
-	# change (rect, 2) for more or less precision
-	# for ex. (rect, 5) will have the polygon points spaced apart more
-	# (rect, 0.0001) will have points spaced very close together for a precise outline
-	var my_array = bm.opaque_to_polygons(rect, 2)
-	# optional - check if opaque_to_polygons() was able to get data
-#		print(my_array)
-	var my_polygon = Polygon2D.new()
-	my_polygon.set_polygons(my_array)
-	var offsetX = 0
-	var offsetY = 0
-	if (texture.get_width() % 2 != 0):
-		offsetX = 1
-	if (texture.get_height() % 2 != 0):
-		offsetY = 1
-	for i in range(my_polygon.polygons.size()):
+	var polygons = bm.opaque_to_polygons(rect, 1)
+	
+	var largestArea := 0.0
+	var largestCollision := CollisionPolygon2D.new()
+	var largestIndex := 0
+	
+	var collision_list: Array[CollisionPolygon2D] = []
+	
+	if polygons.size() == 0:
+		get_tree().paused = true
+		return
+	
+	for i in range(polygons.size()):
 		var my_collision = CollisionPolygon2D.new()
-		my_collision.set_polygon(my_polygon.polygons[i])
-		my_collision.position -= Vector2((texture.get_width() / 2) + offsetX, (texture.get_height() / 2) + offsetY) * scale.x
-		my_collision.scale = scale
-		$Area2D.call_deferred("add_child", my_collision)
+		my_collision.set_polygon(polygons[i])
+		my_collision.position -= Vector2((texture.get_width() / 2), (texture.get_height() / 2)) * scale.x
+		
+		var area = polygon_area(polygons[i])
+		if(area > largestArea):
+			largestArea = area
+			largestCollision = my_collision
+			largestIndex = i
+		
+		collision_list.append(my_collision)
+	
+	$Area2D.call_deferred("add_child", largestCollision)
+	collision_list.remove_at(largestIndex)
+	
+	if collision_list.size() > 0:
+		separate_polygons(collision_list)
+
+func separate_polygons(collision_list: Array[CollisionPolygon2D]):
+	var image_data: Image = $Earth.texture.get_image()
+	var width = image_data.get_width()
+	var height = image_data.get_height()
+	
+	for polygon in collision_list:
+		var new_image = Image.create(width, height, false, image_data.get_format())
+		
+		for y in range(height):
+			for x in range(width):
+				var pos = Vector2(x, y)
+				
+				if Geometry2D.is_point_in_polygon(pos, polygon.polygon):
+					new_image.set_pixel(x, y, image_data.get_pixel(x, y))
+					image_data.set_pixel(x, y, Color(0, 0, 0, 0))
+		
+		var chunk_scene: PackedScene = load("res://scenes/chunk.tscn")
+		var chunk: Chunk = chunk_scene.instantiate()
+		
+		chunk.set_texture(new_image)
+		chunk.direction = random_unit_vector()
+		add_sibling(chunk)
+		
+		update_texture(image_data)
+
+func update_texture(image: Image):
+	$Earth.texture = ImageTexture.create_from_image(image)
+	
+	var damaged_earth: = $DamagedEarth as Sprite2D;
+	var de_material = damaged_earth.material
+	if de_material is ShaderMaterial:
+		de_material.set_shader_parameter("earth", $Earth.texture)
+
+# use the Gauss's Shoelace function to calculate area
+func polygon_area(polygon: PackedVector2Array) -> float:
+	var area := 0.0
+	var num_vertices := polygon.size()
+	
+	if num_vertices < 3:
+		return 0.0
+	
+	for q in range(num_vertices):
+		var p = (q - 1 + num_vertices) % num_vertices
+		area += polygon[q].cross(polygon[p])
+	
+	return abs(area) * 0.5
+
+func polygon_centroid(polygon: PackedVector2Array) -> Vector2:
+	var centroid = Vector2()
+	var area = polygon_area(polygon)
+	var num_vertices = polygon.size()
+	var factor = 0.0
+	
+	for q in range(num_vertices):
+		var p = (q - 1 + num_vertices) % num_vertices
+		factor = polygon[q].cross(polygon[p])
+		centroid += (polygon[p] + polygon[q]) * factor
+	
+	centroid /= (6.0 * area)
+	return abs(centroid)
