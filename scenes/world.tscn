@@ -37,7 +37,6 @@ texture = ExtResource("1_4wyf3")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
-wait_time = 0.1
 autostart = true
 
 [node name="Area2D" type="Area2D" parent="."]
