@@ -14,7 +14,7 @@ func spawn_asteroid():
 	var direction = random_unit_vector()
 	
 	# convert that direction to a position
-	var asteroid_position = asteroid_spawn_distance * direction
+	var asteroid_position = asteroid_spawn_distance * random_unit_vector()
 	
 	# instantiate the asteroid to spawn it
 	var asteroid : Asteroid = asteroid_scene.instantiate()
@@ -29,7 +29,7 @@ func spawn_asteroid():
 	get_parent().add_child(asteroid)
 
 func random_unit_vector() -> Vector2:
-	return Vector2(rng.randf_range(-1, 1), rng.randf_range(-1, 1)).normalized()
+	return Vector2.from_angle(rng.randf_range(0, 2 * PI))
 
 func random_in_unit_sphere() -> Vector2:
 	return Vector2.from_angle(rng.randf_range(0, 2 * PI)) * rng.randf()
@@ -38,6 +38,8 @@ func on_hit(body: Area2D):
 	if body.get_parent() is Asteroid:
 		var asteroid = body.get_parent() as Asteroid
 		asteroid.queue_free()
+		
+		$Camera2D.apply_shake()
 		
 		hollow_texture(asteroid.position)
 		recompute_collision_shape()
