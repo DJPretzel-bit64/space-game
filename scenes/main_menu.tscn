@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://l3h1w4gggpe6"]
+[gd_scene load_steps=4 format=3 uid="uid://iwkiia2nsudo"]
 
-[ext_resource type="Script" uid="uid://b2568j74aywje" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_l6cm7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6cm7"]
 bg_color = Color(0.25013205, 0.28362778, 0.30826032, 1)
