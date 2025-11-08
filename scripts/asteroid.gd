@@ -10,3 +10,7 @@ var direction: Vector2
 func _process(delta):
 	# move in the direction we want to move
 	position += direction * speed * delta
+
+func hit(area: Area2D):
+	if area.get_parent() is Shield:
+		queue_free()
