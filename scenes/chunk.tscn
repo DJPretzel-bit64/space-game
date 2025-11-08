@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c231gs5l3x2eq"]
+
+[ext_resource type="Script" uid="uid://dxsrapn6e5q6m" path="res://scripts/chunk.gd" id="1_jas4a"]
+
+[node name="Chunk" type="Node2D"]
+script = ExtResource("1_jas4a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
