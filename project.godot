@@ -13,7 +13,7 @@ config_version=5
 config/name="space-game"
 run/main_scene="uid://dkr1i12fi570x"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://textures/icon.svg"
 
 [dotnet]
 
