@@ -1,4 +1,5 @@
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 [gd_scene load_steps=2 format=3 uid="uid://dkr1i12fi570x"]
 
 [ext_resource type="PackedScene" uid="uid://b3r7rykyto3k8" path="res://scenes/world.tscn" id="1_uwrxv"]
@@ -9,6 +10,10 @@
 =======
 [gd_scene load_steps=4 format=3 uid="uid://ct556i38os2k1"]
 
+=======
+[gd_scene load_steps=4 format=3 uid="uid://ct556i38os2k1"]
+
+>>>>>>> Stashed changes
 [ext_resource type="PackedScene" path="res://scenes/world.tscn" id="1_uwrxv"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://tf12dqxd0pi8" path="res://scenes/setting.tscn" id="3_lnu2h"]
@@ -23,4 +28,7 @@ offset_left = 261.0
 offset_top = 141.0
 offset_right = 312.0
 offset_bottom = 108.0
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
