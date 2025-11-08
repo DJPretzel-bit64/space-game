@@ -13,7 +13,8 @@ config_version=5
 config/name="space-game"
 run/main_scene="uid://dkr1i12fi570x"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://textures/icon.svg"
+boot_splash/image="uid://djxe37cf2d1mk"
+config/icon="uid://csh3nkhhgj7bk"
 
 [display]
 
