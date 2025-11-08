@@ -34,7 +34,6 @@ func _process(delta: float) -> void:
 
 
 func _on_volume_value_changed(value: float) -> void:
-	print(value)
 	AudioServer.set_bus_volume_db(0, 10 * log(value / 100) / log(10))
 
 func _on_check_box_toggled(toggled_on: bool) -> void:
