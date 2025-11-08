@@ -1,7 +1,7 @@
 extends Node2D
 
 # define variables needed by this class
-@export var asteroid_spawn_distance: int = 500
+@export var asteroid_spawn_distance: int = 750
 @export var asteroid_scene: PackedScene
 @export var crater_radius: int = 15
 
@@ -27,6 +27,8 @@ func spawn_asteroid():
 	
 	# add the asteroid to our parent (the root node)
 	get_parent().add_child(asteroid)
+	
+	$AsteroidSpawnTimer.wait_time *= 0.995
 
 func random_unit_vector() -> Vector2:
 	return Vector2.from_angle(rng.randf_range(0, 2 * PI))
@@ -44,9 +46,9 @@ func on_hit(body: Area2D):
 		hollow_texture(asteroid.position)
 		recompute_collision_shape()
 
-func on_lose_hit(body: Area2D):
-	if body.get_parent() is Asteroid:
-		get_tree().paused = true
+#func on_lose_hit(body: Area2D):
+	#if body.get_parent() is Asteroid:
+		#get_tree().paused = true
 
 func hollow_texture(crater_position: Vector2):
 	var image: Image = $Earth.texture.get_image()
@@ -82,6 +84,10 @@ func recompute_collision_shape():
 	var largestIndex := 0
 	
 	var collision_list: Array[CollisionPolygon2D] = []
+	
+	if polygons.size() == 0:
+		get_tree().paused = true
+		return
 	
 	for i in range(polygons.size()):
 		var my_collision = CollisionPolygon2D.new()

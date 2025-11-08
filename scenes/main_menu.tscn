@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3 uid="uid://iwkiia2nsudo"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6cm7"]
+bg_color = Color(0.25013205, 0.28362778, 0.30826032, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 8
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="Theme" id="Theme_vue75"]
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(0.09411765, 0.5254902, 0.5294118, 1)
+Button/font_sizes/font_size = 70
+Button/styles/normal = SubResource("StyleBoxFlat_l6cm7")
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_l6cm7")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1200.0
+offset_bottom = 400.0
+theme_override_font_sizes/font_size = 150
+text = "Project Aegis"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_top = 400.0
+offset_right = 1200.0
+offset_bottom = 900.0
+theme = SubResource("Theme_vue75")
+
+[node name="MainButtons" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Play" type="Button" parent="CenterContainer/MainButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "PLAY"
+
+[node name="Settings" type="Button" parent="CenterContainer/MainButtons"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "SETTINGS"
+
+[node name="Credits" type="Button" parent="CenterContainer/MainButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "CREDITS"
+
+[node name="CreditsMenu" type="VBoxContainer" parent="CenterContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/CreditsMenu"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "A Game Developed by:
+Dylan Hetzel
+Philip Mugabi
+Jamie Gremard
+Jacob Wood"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Back" type="Button" parent="CenterContainer/CreditsMenu"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 60
+text = "BACK"
+
+[connection signal="pressed" from="CenterContainer/MainButtons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/MainButtons/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="CenterContainer/MainButtons/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="CenterContainer/CreditsMenu/Back" to="." method="_on_back_pressed"]
