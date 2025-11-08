@@ -2,7 +2,6 @@ class_name Asteroid
 
 extends Node2D
 
-
 # define variables we need
 var direction: Vector2
 @export var speed: int = 250
