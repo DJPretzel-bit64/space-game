@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwayn25pk8dqf"]
+
+[ext_resource type="Script" uid="uid://c0b1u164c8npq" path="res://scripts/resume_btn.gd" id="1_kukqi"]
+[ext_resource type="Script" uid="uid://b0bi14d2rb3tu" path="res://scripts/mmenu_btn.gd" id="2_5d2l8"]
+[ext_resource type="Script" uid="uid://bd3g411qlomvq" path="res://scripts/settingsbtn.gd" id="3_7l7mv"]
+
+[sub_resource type="GDScript" id="GDScript_v4r4p"]
+script/source = "extends PopupPanel
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1s2dm"]
+bg_color = Color(0.24467978, 0.0123259965, 0.61485904, 1)
+
+[node name="PauseMenu" type="Node2D"]
+position = Vector2(600, 300)
+
+[node name="pausePopUp" type="PopupPanel" parent="."]
+oversampling_override = 1.0
+position = Vector2i(400, 150)
+size = Vector2i(350, 300)
+visible = true
+script = SubResource("GDScript_v4r4p")
+
+[node name="pausePanel" type="Panel" parent="pausePopUp"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 346.0
+offset_bottom = 296.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1s2dm")
+
+[node name="menuTitle" type="RichTextLabel" parent="pausePopUp/pausePanel"]
+modulate = Color(3.1340694, 10.41618, 16.039686, 1)
+self_modulate = Color(0.19187331, 0.9980541, 0.9651397, 1)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 5.0
+offset_right = 322.0
+offset_bottom = 52.0
+theme_override_constants/line_separation = 100
+theme_override_constants/text_highlight_h_padding = 11
+text = "Game Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="optionsPanel" type="Panel" parent="pausePopUp/pausePanel"]
+modulate = Color(1, 1, 1, 0.99607843)
+layout_mode = 0
+offset_left = 12.0
+offset_top = 77.0
+offset_right = 330.0
+offset_bottom = 281.0
+
+[node name="resumeBtn" type="Button" parent="pausePopUp/pausePanel/optionsPanel"]
+modulate = Color(0.45882353, 0.7019608, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 41.0
+offset_top = 29.0
+offset_right = 277.0
+offset_bottom = 72.0
+action_mode = 0
+text = "Resume"
+script = ExtResource("1_kukqi")
+
+[node name="mmenuBtn" type="Button" parent="pausePopUp/pausePanel/optionsPanel"]
+modulate = Color(0.45882353, 0.7019608, 1, 1)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 41.0
+offset_top = 107.0
+offset_right = 277.0
+offset_bottom = 150.0
+action_mode = 0
+text = "Main Menu"
+script = ExtResource("2_5d2l8")
+
+[node name="settingsbtn" type="Button" parent="pausePopUp/pausePanel/optionsPanel"]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("3_7l7mv")
+
+[connection signal="pressed" from="pausePopUp/pausePanel/optionsPanel/resumeBtn" to="pausePopUp/pausePanel/optionsPanel/resumeBtn" method="_on_pressed"]
+[connection signal="pressed" from="pausePopUp/pausePanel/optionsPanel/mmenuBtn" to="pausePopUp/pausePanel/optionsPanel/mmenuBtn" method="_on_pressed"]
+[connection signal="pressed" from="pausePopUp/pausePanel/optionsPanel/settingsbtn" to="pausePopUp/pausePanel/optionsPanel/settingsbtn" method="_on_pressed"]
