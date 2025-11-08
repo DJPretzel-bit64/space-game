@@ -36,9 +36,13 @@ func on_hit(body: Area2D):
 		hollow_texture(asteroid.position)
 		recompute_collision_shape()
 
+func on_lose_hit(body: Area2D):
+	if body.get_parent() is Asteroid:
+		get_tree().paused = true
+
 func hollow_texture(crater_position: Vector2):
-	var image: Image = $Sprite2D.texture.get_image()
-	var image_size: Vector2 = $Sprite2D.texture.get_size()
+	var image: Image = $Earth.texture.get_image()
+	var image_size: Vector2 = $Earth.texture.get_size()
 	
 	for i in range(-crater_radius, crater_radius):
 		for j in range(-crater_radius, crater_radius):
@@ -47,10 +51,16 @@ func hollow_texture(crater_position: Vector2):
 				image.set_pixelv(pos, Color(0, 0, 0, 0))
 	
 	var texture := ImageTexture.create_from_image(image)
-	$Sprite2D.texture = texture
+	$Earth.texture = texture
+	
+	var damaged_earth: = $DamagedEarth as Sprite2D;
+	var de_material = damaged_earth.material
+	if de_material is ShaderMaterial:
+		de_material.set_shader_parameter("earth", texture)
 
 func recompute_collision_shape():
-	var texture: Texture = $Sprite2D.texture
+	# IDK, it works, don't touch 🔪🔪🔪
+	var texture: Texture = $Earth.texture
 	
 	for child in $Area2D.get_children():
 		child.queue_free()
