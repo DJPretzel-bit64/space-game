@@ -13,4 +13,8 @@ script = ExtResource("2_yqjtg")
 offset_left = 261.0
 offset_top = 141.0
 offset_right = 312.0
+<<<<<<< Updated upstream
 offset_bottom = 108.0
+=======
+offset_bottom = 108.0
+>>>>>>> Stashed changes
