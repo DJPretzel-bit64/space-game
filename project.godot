@@ -11,10 +11,18 @@ config_version=5
 [application]
 
 config/name="space-game"
-run/main_scene="uid://dkr1i12fi570x"
+run/main_scene="res://scenes/setting.tscn"
 config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/image="uid://djxe37cf2d1mk"
 config/icon="uid://csh3nkhhgj7bk"
+
+[display]
+
+window/size/viewport_width=1200
+window/size/viewport_height=900
+window/subwindows/embed_subwindows=false
+window/stretch/mode="viewport"
+window/per_pixel_transparency/allowed=true
 
 [display]
 
@@ -28,6 +36,11 @@ window/per_pixel_transparency/allowed=true
 
 project/assembly_name="space-game"
 
+
+[physics]
+
+2d/default_gravity=0.0
+
 [input]
 
 toggle_settings={
@@ -36,6 +49,3 @@ toggle_settings={
 ]
 }
 
-[physics]
-
-2d/default_gravity=0.0
