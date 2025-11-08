@@ -21,3 +21,7 @@ func _process(delta):
 func hit(area: Area2D):
 	if area.get_parent() is Shield:
 		queue_free()
+		
+		var camera := get_viewport().get_camera_2d()
+		if camera is CameraShake:
+			camera.apply_shake(5)
