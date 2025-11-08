@@ -12,8 +12,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	AniPlay1.play("background_switch_1")
-	await get_tree().create_timer(AniPlay1.get_current_animation_length() - 5).timeout
+	await get_tree().create_timer(20).timeout
 	AniPlay2.play("background_switch_2")
-	await get_tree().create_timer(AniPlay2.get_current_animation_length() - 5).timeout
+	await get_tree().create_timer(20).timeout
 	AniPlay3.play("background_switch_3")
-	await get_tree().create_timer(AniPlay2.get_current_animation_length() - 5).timeout
+	await get_tree().create_timer(20).timeout

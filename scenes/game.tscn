@@ -1,12 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://dkr1i12fi570x"]
+[gd_scene load_steps=21 format=3 uid="uid://dkr1i12fi570x"]
 
+[ext_resource type="Texture2D" uid="uid://djxe37cf2d1mk" path="res://textures/background.png" id="1_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://b3r7rykyto3k8" path="res://scenes/world.tscn" id="1_uwrxv"]
-[ext_resource type="Script" uid="uid://chqp4gnwyhdlk" path="res://scenes/background.gd" id="2_u5sy4"]
+[ext_resource type="Script" uid="uid://chqp4gnwyhdlk" path="res://scripts/background.gd" id="2_u5sy4"]
 [ext_resource type="PackedScene" path="res://scenes/shield.tscn" id="2_yqjtg"]
-[ext_resource type="Texture2D" uid="uid://cfks6ikflpsec" path="res://textures/background1.png" id="3_lbhrr"]
-[ext_resource type="Texture2D" uid="uid://dis04mux8ijcr" path="res://textures/background2.png" id="3_u5sy4"]
-[ext_resource type="Texture2D" uid="uid://y3jfmm3fdl8g" path="res://textures/background3.png" id="4_gee14"]
-[ext_resource type="Script" uid="uid://cd55c37aqfv2s" path="res://scenes/animation_player.gd" id="5_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://bda28cvjpnp6u" path="res://textures/stars1.png" id="5_dinhu"]
+[ext_resource type="Texture2D" uid="uid://cj0x1jvhcx5db" path="res://textures/stars2.png" id="8_kvuet"]
+[ext_resource type="Texture2D" uid="uid://13oa53ybe2ac" path="res://textures/stars3.png" id="9_trtic"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u5sy4"]
+load_path = "res://.godot/imported/background3.png-1e0e2e0eba3ca848fb05221d681b1adc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gee14"]
+load_path = "res://.godot/imported/background1.png-9e721fca793feb3627d8011e02138ee0.ctex"
 
 [sub_resource type="Animation" id="Animation_vtaks"]
 length = 0.001
@@ -20,7 +26,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_lbhrr")]
+"values": [SubResource("CompressedTexture2D_gee14")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -49,7 +55,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_lbhrr")]
+"values": [ExtResource("5_dinhu")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -58,10 +64,10 @@ tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(15.01, 20),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 15.01, 20),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.78431374), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.78431374), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_trtic"]
@@ -69,6 +75,25 @@ _data = {
 &"RESET": SubResource("Animation_vtaks"),
 &"background_switch_1": SubResource("Animation_kvpfn")
 }
+
+[sub_resource type="GDScript" id="GDScript_0tnpc"]
+script/source = "extends AnimationPlayer
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass
+#		
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+	
+
+	
+"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vtaks"]
+load_path = "res://.godot/imported/background2.png-5160f303c437d4ad9314658f8871d2b3.ctex"
 
 [sub_resource type="Animation" id="Animation_u5sy4"]
 length = 0.001
@@ -82,7 +107,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_u5sy4")]
+"values": [SubResource("CompressedTexture2D_vtaks")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -107,10 +132,10 @@ tracks/0/path = NodePath("..:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.01),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ExtResource("3_u5sy4")]
+"values": [ExtResource("8_kvuet"), SubResource("CompressedTexture2D_vtaks")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -119,10 +144,10 @@ tracks/1/path = NodePath("..:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(14.99, 20),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 2, 14.99, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.93333334), Color(1, 1, 1, 0.015686275)]
+"values": [Color(1, 1, 1, 0.03137255), Color(1, 1, 1, 0.93333334), Color(1, 1, 1, 0.93333334), Color(1, 1, 1, 0.015686275)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gee14"]
@@ -143,7 +168,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_gee14")]
+"values": [SubResource("CompressedTexture2D_u5sy4")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -171,7 +196,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("4_gee14")]
+"values": [ExtResource("9_trtic")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -180,10 +205,10 @@ tracks/1/path = NodePath(".:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(14.98, 20),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 2, 14.98, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 0.972549), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 0.023529412), Color(1, 1, 1, 0.972549), Color(1, 1, 1, 0.972549), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kvuet"]
@@ -195,23 +220,28 @@ _data = {
 [node name="Game" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.6)
+texture = ExtResource("1_kvpfn")
+
+[node name="Stars" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.972549)
-texture = ExtResource("4_gee14")
+scale = Vector2(0.5, 0.6)
+texture = SubResource("CompressedTexture2D_u5sy4")
 script = ExtResource("2_u5sy4")
 
-[node name="AniPlay1" type="AnimationPlayer" parent="Background"]
+[node name="AniPlay1" type="AnimationPlayer" parent="Stars"]
 libraries = {
 &"": SubResource("AnimationLibrary_trtic")
 }
-script = ExtResource("5_0tnpc")
+script = SubResource("GDScript_0tnpc")
 
-[node name="AniPlay2" type="AnimationPlayer" parent="Background"]
+[node name="AniPlay2" type="AnimationPlayer" parent="Stars"]
 root_node = NodePath("../AniPlay1")
 libraries = {
 &"": SubResource("AnimationLibrary_gee14")
 }
 
-[node name="AniPlay3" type="AnimationPlayer" parent="Background"]
+[node name="AniPlay3" type="AnimationPlayer" parent="Stars"]
 libraries = {
 &"": SubResource("AnimationLibrary_kvuet")
 }
@@ -221,9 +251,3 @@ libraries = {
 [node name="world2" parent="." instance=ExtResource("1_uwrxv")]
 
 [node name="Shield" parent="." instance=ExtResource("2_yqjtg")]
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_trtic")
-}
-script = ExtResource("5_0tnpc")
