@@ -1,6 +1,6 @@
 extends Control
 
-@onready var option_button = $MarginContainer/VBoxContainer/Resolution as OptionButton
+@onready var option_button = $MarginContainer/VBoxContainer/WindowMode2 as OptionButton
 
 const WINDOW_MODE_ARRAY: Array[String] = [
 	"Full-Screen",
