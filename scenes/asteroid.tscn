@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c2x6hn4eqchwo"]
+[gd_scene load_steps=21 format=3 uid="uid://c2x6hn4eqchwo"]
 
 [ext_resource type="Texture2D" uid="uid://cw0xud1iddocf" path="res://textures/asteroid1.png" id="1_6mo6b"]
 [ext_resource type="Script" uid="uid://dnf0bolp3grsb" path="res://scripts/asteroid.gd" id="2_6mo6b"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ciqnaudrwd25j" path="res://textures/explosion3.png" id="10_foul2"]
 [ext_resource type="Texture2D" uid="uid://da5mrjakexx3k" path="res://textures/explosion4.png" id="11_e1oj2"]
 [ext_resource type="Texture2D" uid="uid://dgeyqddj8c3xy" path="res://textures/explosion5.png" id="12_fae33"]
+[ext_resource type="AudioStream" uid="uid://cc587ba7ucrud" path="res://Music/impact.wav" id="13_ug8x5"]
 
 [sub_resource type="Animation" id="Animation_osw8w"]
 length = 0.001
@@ -129,6 +130,9 @@ texture = ExtResource("8_2wa65")
 libraries = {
 &"": SubResource("AnimationLibrary_ymjcv")
 }
+
+[node name="ImpactAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_ug8x5")
 
 [connection signal="area_entered" from="Area2D" to="." method="hit"]
 [connection signal="timeout" from="Lifespan" to="." method="kill"]

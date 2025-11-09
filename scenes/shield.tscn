@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ce8eoyybqm26d"]
+[gd_scene load_steps=6 format=3 uid="uid://ce8eoyybqm26d"]
 
 [ext_resource type="Script" uid="uid://bxr53nqs5wju5" path="res://scripts/shield.gd" id="1_ohv3a"]
 [ext_resource type="Texture2D" uid="uid://b0o5w5cuet1bh" path="res://textures/Shield.png" id="1_vtru8"]
 [ext_resource type="Shader" uid="uid://86apyd4bvyet" path="res://scripts/shield.gdshader" id="2_e3gf5"]
+[ext_resource type="AudioStream" uid="uid://28yao5hfkuqk" path="res://Music/shieldBlock.mp3" id="4_gsp1a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gsp1a"]
 shader = ExtResource("2_e3gf5")
@@ -26,3 +27,6 @@ polygon = PackedVector2Array(95, -15, 72, -50, 68, 61, 92, 30)
 [node name="BulletCooldown" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="shieldBlockAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_gsp1a")
