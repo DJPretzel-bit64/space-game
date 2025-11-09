@@ -11,10 +11,14 @@ config_version=5
 [application]
 
 config/name="space-game"
-run/main_scene="uid://l3h1w4gggpe6"
+run/main_scene="uid://7eehwsn5rfc6"
 config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/image="uid://djxe37cf2d1mk"
 config/icon="uid://csh3nkhhgj7bk"
+
+[audio]
+
+buses/default_bus_layout=""
 
 [autoload]
 
