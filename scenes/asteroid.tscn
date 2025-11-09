@@ -1,9 +1,50 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2x6hn4eqchwo"]
+[gd_scene load_steps=12 format=3 uid="uid://c2x6hn4eqchwo"]
 
 [ext_resource type="Texture2D" uid="uid://cw0xud1iddocf" path="res://textures/asteroid1.png" id="1_6mo6b"]
 [ext_resource type="Script" uid="uid://dnf0bolp3grsb" path="res://scripts/asteroid.gd" id="2_6mo6b"]
 [ext_resource type="Texture2D" uid="uid://dfevj7dqtihee" path="res://textures/asteroid2.png" id="3_pnq5b"]
 [ext_resource type="Texture2D" uid="uid://do0fyaj6evuqa" path="res://textures/asteroid3.png" id="4_pwrvu"]
+[ext_resource type="Texture2D" uid="uid://rtg70amt5tdt" path="res://textures/meteorTail1.png" id="5_kkwpv"]
+[ext_resource type="Texture2D" uid="uid://bkgkfgomaou3h" path="res://textures/meteorTail2.png" id="6_x1lus"]
+[ext_resource type="Texture2D" uid="uid://d1fjwwhvxbtw7" path="res://textures/meteorTail3.png" id="7_71tyo"]
+
+[sub_resource type="Animation" id="Animation_jm418"]
+resource_name = "tailanimation"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("5_kkwpv"), ExtResource("6_x1lus"), ExtResource("7_71tyo")]
+}
+
+[sub_resource type="Animation" id="Animation_osw8w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_kkwpv")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2wa65"]
+_data = {
+&"RESET": SubResource("Animation_osw8w"),
+&"tailanimation": SubResource("Animation_jm418")
+}
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6mo6b"]
 radius = 12.0415945
@@ -12,7 +53,19 @@ radius = 12.0415945
 script = ExtResource("2_6mo6b")
 textures = Array[Texture2D]([ExtResource("1_6mo6b"), ExtResource("3_pnq5b"), ExtResource("4_pwrvu")])
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="AsteroidTail" type="Sprite2D" parent="."]
+position = Vector2(-10, -2.3841858e-07)
+rotation = 3.9269907
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("5_kkwpv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AsteroidTail"]
+libraries = {
+&"": SubResource("AnimationLibrary_2wa65")
+}
+autoplay = "tailanimation"
+
+[node name="AsteroidSprite" type="Sprite2D" parent="."]
 scale = Vector2(0.017, 0.017)
 texture = ExtResource("1_6mo6b")
 
