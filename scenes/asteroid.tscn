@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c2x6hn4eqchwo"]
+[gd_scene load_steps=20 format=3 uid="uid://c2x6hn4eqchwo"]
 
 [ext_resource type="Texture2D" uid="uid://cw0xud1iddocf" path="res://textures/asteroid1.png" id="1_6mo6b"]
 [ext_resource type="Script" uid="uid://dnf0bolp3grsb" path="res://scripts/asteroid.gd" id="2_6mo6b"]
@@ -7,6 +7,26 @@
 [ext_resource type="Texture2D" uid="uid://rtg70amt5tdt" path="res://textures/meteorTail1.png" id="5_kkwpv"]
 [ext_resource type="Texture2D" uid="uid://bkgkfgomaou3h" path="res://textures/meteorTail2.png" id="6_x1lus"]
 [ext_resource type="Texture2D" uid="uid://d1fjwwhvxbtw7" path="res://textures/meteorTail3.png" id="7_71tyo"]
+[ext_resource type="Texture2D" uid="uid://brhaix4iwlpqf" path="res://textures/explosion1.png" id="8_2wa65"]
+[ext_resource type="Texture2D" uid="uid://cv45dhwgh3vmu" path="res://textures/explosion2.png" id="9_ug8x5"]
+[ext_resource type="Texture2D" uid="uid://ciqnaudrwd25j" path="res://textures/explosion3.png" id="10_foul2"]
+[ext_resource type="Texture2D" uid="uid://da5mrjakexx3k" path="res://textures/explosion4.png" id="11_e1oj2"]
+[ext_resource type="Texture2D" uid="uid://dgeyqddj8c3xy" path="res://textures/explosion5.png" id="12_fae33"]
+
+[sub_resource type="Animation" id="Animation_osw8w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_kkwpv")]
+}
 
 [sub_resource type="Animation" id="Animation_jm418"]
 resource_name = "tailanimation"
@@ -25,7 +45,32 @@ tracks/0/keys = {
 "values": [ExtResource("5_kkwpv"), ExtResource("6_x1lus"), ExtResource("7_71tyo")]
 }
 
-[sub_resource type="Animation" id="Animation_osw8w"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2wa65"]
+_data = {
+&"RESET": SubResource("Animation_osw8w"),
+&"tailanimation": SubResource("Animation_jm418")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6mo6b"]
+radius = 12.0415945
+
+[sub_resource type="Animation" id="Animation_u1gqy"]
+resource_name = "explosion_animation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("8_2wa65"), ExtResource("9_ug8x5"), ExtResource("10_foul2"), ExtResource("11_e1oj2"), ExtResource("12_fae33")]
+}
+
+[sub_resource type="Animation" id="Animation_2jebp"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -37,17 +82,14 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_kkwpv")]
+"values": [ExtResource("8_2wa65")]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2wa65"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ymjcv"]
 _data = {
-&"RESET": SubResource("Animation_osw8w"),
-&"tailanimation": SubResource("Animation_jm418")
+&"RESET": SubResource("Animation_2jebp"),
+&"explosion_animation": SubResource("Animation_u1gqy")
 }
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_6mo6b"]
-radius = 12.0415945
 
 [node name="Asteroid" type="Node2D"]
 script = ExtResource("2_6mo6b")
@@ -76,6 +118,15 @@ shape = SubResource("CircleShape2D_6mo6b")
 
 [node name="Lifespan" type="Timer" parent="."]
 wait_time = 15.0
+
+[node name="Explosion" type="Sprite2D" parent="."]
+position = Vector2(-138, 59)
+texture = ExtResource("8_2wa65")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Explosion"]
+libraries = {
+&"": SubResource("AnimationLibrary_ymjcv")
+}
 
 [connection signal="area_entered" from="Area2D" to="." method="hit"]
 [connection signal="timeout" from="Lifespan" to="." method="kill"]
