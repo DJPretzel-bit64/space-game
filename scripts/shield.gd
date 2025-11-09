@@ -2,7 +2,7 @@ class_name Shield
 
 extends Node2D
 
-@export var rad_speed: float = 10.0
+@export var rad_speed: float = 20.0
 var mouse_active := true
 
 func _process(delta: float):
@@ -21,3 +21,19 @@ func _process(delta: float):
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		mouse_active = true
+	
+	if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_action_just_pressed("fire")) and $BulletCooldown.time_left == 0:
+		var shield_bullet_scene: PackedScene = load("res://scenes/shield_bullet.tscn")
+		var shield_bullet: ShieldBullet = shield_bullet_scene.instantiate()
+		shield_bullet.direction = Vector2.from_angle(rotation)
+		shield_bullet.rotation = rotation
+		add_sibling(shield_bullet)
+		$BulletCooldown.start()
+	
+	var mat = $Shield2D.material
+	if mat is ShaderMaterial:
+		mat.set_shader_parameter("ready", $BulletCooldown.time_left == 0)
+
+
+func _on_area_2d_area_entered(_area: Area2D) -> void:
+	$shieldBlockAudio.play(1.25)

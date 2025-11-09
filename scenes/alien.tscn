@@ -18,3 +18,8 @@ texture = ExtResource("1_h100l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_h100l")
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="area_entered" from="Area2D" to="." method="hit"]

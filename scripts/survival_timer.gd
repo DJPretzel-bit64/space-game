@@ -2,5 +2,5 @@ extends Timer
 
 var time = 0;
 
-func _on_timeout() -> void:
+func _on_timeout():
 	time += 1
