@@ -23,7 +23,7 @@ func spawn_asteroid():
 	asteroid.position = asteroid_position
 	
 	# set the asteroid's direction (difference between us and the asteoid)
-	asteroid.direction = (position - asteroid.position).normalized()
+	asteroid.direction = (position + random_in_unit_sphere() * ($Earth.texture.get_width() / 2) - asteroid.position).normalized()
 	
 	# add the asteroid to our parent (the root node)
 	get_parent().add_child(asteroid)
@@ -41,14 +41,16 @@ func on_hit(body: Area2D):
 		var asteroid = body.get_parent() as Asteroid
 		asteroid.queue_free()
 		
-		$Camera2D.apply_shake()
+		var camera := get_viewport().get_camera_2d()
+		if camera is CameraShake:
+			camera.apply_shake()
 		
 		hollow_texture(asteroid.position)
 		recompute_collision_shape()
 
-#func on_lose_hit(body: Area2D):
-	#if body.get_parent() is Asteroid:
-		#get_tree().paused = true
+func on_lose_hit(body: Area2D):
+	if body.get_parent() is Asteroid:
+		get_tree().paused = true
 
 func hollow_texture(crater_position: Vector2):
 	var image: Image = $Earth.texture.get_image()
