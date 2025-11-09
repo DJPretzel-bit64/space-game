@@ -11,8 +11,9 @@ signal game_over(asteroids: int, aliens: int, time: int)
 var rng = RandomNumberGenerator.new()
 
 var asteroids: Array[Asteroid] = []
+var aliens: Array[Alien] = []
 
-var num_asteroids := 0
+var num_asteroids := 50
 var num_aliens := 0
 var phase := 0
 var time := 0
@@ -59,11 +60,21 @@ func _process(_delta):
 				min_dist = dist
 				closest_asteroid = asteroid
 	$Ship.set_focus(closest_asteroid)
+	
+	for alien in aliens:
+		if is_instance_valid(alien):
+			if alien.distance <= 120:
+				alien.retreat = true
+				bore_texture(alien.rotation)
+				recompute_collision_shape()
+			
 
 func spawn_alien():
 	var alien_scene: PackedScene = load("res://scenes/alien.tscn")
-	var alien = alien_scene.instantiate()
+	var alien: Alien = alien_scene.instantiate()
+	alien.rotation = aliens.size() * PI / 6
 	add_sibling(alien)
+	aliens.append(alien)
 
 func increment_asteroids():
 	num_asteroids += 1
@@ -106,13 +117,19 @@ func hollow_texture(crater_position: Vector2):
 			if i * i + j * j < crater_radius * crater_radius and 0 <= pos.x and pos.x < image_size.x and 0 <= pos.y and pos.y < image_size.y:
 				image.set_pixelv(pos, Color(0, 0, 0, 0))
 	
-	var texture := ImageTexture.create_from_image(image)
-	$Earth.texture = texture
+	update_texture(image)
+
+func bore_texture(direction: float):
+	var image: Image = $Earth.texture.get_image()
+	var image_size: Vector2 = $Earth.texture.get_size()
 	
-	var damaged_earth: = $DamagedEarth as Sprite2D;
-	var de_material = damaged_earth.material
-	if de_material is ShaderMaterial:
-		de_material.set_shader_parameter("earth", texture)
+	var length = $Earth.texture.get_width() / 2
+	for i in range(length):
+		for j in range(-1, 1):
+			var pos = Vector2.from_angle(direction) * i + Vector2(j, 0) + image_size / 2
+			image.set_pixelv(pos, Color(0, 0, 0, 0))
+	
+	update_texture(image)
 
 func recompute_collision_shape():
 	var texture: Texture = $Earth.texture
