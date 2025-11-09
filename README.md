@@ -6,4 +6,8 @@ Sound effect attributions:
 - Shield collision audio: kicking metal plate by eganthelover -- https://freesound.org/s/831709/ -- License: Attribution 4.0
 
 Music attributions:
-- ..
+- Intro Music "Dreadful Whispers":
+  Music by: bensound.com
+  License code: 83MZ9JOTQTLVQ4OA
+  Artist: : FoePound
+
