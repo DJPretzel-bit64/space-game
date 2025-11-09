@@ -1,6 +1,6 @@
 extends AudioStreamPlayer
 
-const level_music = preload("res://Music/Tame Impala - Dracula (Lyrics) - TrendingTracks.mp3")
+const level_music = preload("res://Music/boom-baddie-konstantin-garbuzyuk-main-version-42706-01-45.mp3")
 
 func _play_music(music: AudioStream):
 	if stream == music:
