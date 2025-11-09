@@ -72,6 +72,7 @@ func _process(_delta):
 func spawn_alien():
 	var alien_scene: PackedScene = load("res://scenes/alien.tscn")
 	var alien: Alien = alien_scene.instantiate()
+	$alienAudio.play()
 	alien.rotation = aliens.size() * PI / 6
 	add_sibling(alien)
 	aliens.append(alien)
@@ -100,6 +101,7 @@ func on_hit(body: Area2D):
 		if camera is CameraShake:
 			camera.apply_shake()
 		
+		$earthCrumbleAudio.play()
 		hollow_texture(asteroid.position)
 		recompute_collision_shape()
 
