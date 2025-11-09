@@ -25,7 +25,7 @@ radius = 64.0
 [node name="World" type="Node2D"]
 script = ExtResource("2_rwgxs")
 asteroid_scene = ExtResource("3_4wyf3")
-crater_radius = 30
+crater_radius = 20
 
 [node name="DamagedEarth" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_qfnet")
@@ -38,6 +38,8 @@ texture = ExtResource("1_4wyf3")
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
 autostart = true
 
+[node name="AlienSpawnTimer" type="Timer" parent="."]
+
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -49,5 +51,6 @@ shape = SubResource("CircleShape2D_fj7yv")
 shape = SubResource("CircleShape2D_4wyf3")
 
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="spawn_asteroid"]
+[connection signal="timeout" from="AlienSpawnTimer" to="." method="spawn_alien"]
 [connection signal="area_entered" from="Area2D" to="." method="on_hit"]
 [connection signal="area_entered" from="LoseArea" to="." method="on_lose_hit"]
