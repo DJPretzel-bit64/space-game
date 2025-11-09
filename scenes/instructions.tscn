@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://bykuq7ern6eco"]
+
+[ext_resource type="Script" uid="uid://b1jbv4xi4x43y" path="res://scripts/instructions.gd" id="1_nisbi"]
+[ext_resource type="PackedScene" uid="uid://c02kjvske2c8q" path="res://scenes/background.tscn" id="2_njqp3"]
+
+[node name="Instructions" type="Node2D"]
+script = ExtResource("1_nisbi")
+
+[node name="Background" parent="." instance=ExtResource("2_njqp3")]
+position = Vector2(608, 496)
+
+[node name="txtContainer" type="Panel" parent="."]
+offset_left = 44.0
+offset_top = 73.0
+offset_right = 1154.0
+offset_bottom = 466.0
+
+[node name="text" type="Label" parent="txtContainer"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 54.0
+offset_right = 1187.0
+offset_bottom = 330.0
+theme_override_font_sizes/font_size = 18
+text = "Welcome! 
+You have been tasked to control a shield to protect Earth from a storm of meteors.
+You can use your mouse or the arrow keys to protect Earth, whichever is most convient for you. 
+As you get better and keep Earth alive longer, you will get an assistance, automatic ship that will aid you in your journey.
+See how long you can keep Earth intact and test your reflexes.
+
+Good Luck!
+
+PS: Watch out for the UFOs"
+
+[node name="backBtn" type="Button" parent="."]
+offset_left = 44.0
+offset_top = 520.0
+offset_right = 402.0
+offset_bottom = 594.0
+theme_override_font_sizes/font_size = 25
+text = "Back to Main Menu"
+
+[connection signal="pressed" from="backBtn" to="." method="_on_back_btn_pressed"]
