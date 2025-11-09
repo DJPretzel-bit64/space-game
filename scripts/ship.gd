@@ -29,6 +29,7 @@ func on_cooldown():
 func fire():
 	var bullet_scene: PackedScene = load("res://scenes/bullet.tscn")
 	var bullet: Bullet = bullet_scene.instantiate()
+	$LaserGunAudio.play()
 	bullet.rotation = rotation
 	bullet.direction = Vector2.from_angle(rotation)
 	add_sibling(bullet)
