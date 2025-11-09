@@ -101,7 +101,7 @@ func on_hit(body: Area2D):
 		if camera is CameraShake:
 			camera.apply_shake()
 		
-		$earthCrumbleAudio.play()
+		$earthCrumbleAudio.play(5)
 		hollow_texture(asteroid.position)
 		recompute_collision_shape()
 

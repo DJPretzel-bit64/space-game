@@ -33,3 +33,7 @@ func _process(delta: float):
 	var mat = $Shield2D.material
 	if mat is ShaderMaterial:
 		mat.set_shader_parameter("ready", $BulletCooldown.time_left == 0)
+
+
+func _on_area_2d_area_entered(_area: Area2D) -> void:
+	$shieldBlockAudio.play(1.25)
