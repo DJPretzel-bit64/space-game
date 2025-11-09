@@ -40,6 +40,7 @@ texture = ExtResource("1_4wyf3")
 autostart = true
 
 [node name="AlienSpawnTimer" type="Timer" parent="."]
+wait_time = 10.0
 
 [node name="Area2D" type="Area2D" parent="."]
 

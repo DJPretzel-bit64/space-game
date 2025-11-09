@@ -37,7 +37,7 @@ func spawn_asteroid():
 	asteroid.blocked.connect(increment_asteroids)
 	
 	# add the asteroid to our parent (the root node)
-	get_parent().add_child(asteroid)
+	add_sibling(asteroid)
 	
 	asteroids.append(asteroid)
 	
@@ -61,7 +61,9 @@ func _process(_delta):
 	$Ship.set_focus(closest_asteroid)
 
 func spawn_alien():
-	pass
+	var alien_scene: PackedScene = load("res://scenes/alien.tscn")
+	var alien = alien_scene.instantiate()
+	add_sibling(alien)
 
 func increment_asteroids():
 	num_asteroids += 1
