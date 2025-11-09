@@ -13,7 +13,7 @@ var rng = RandomNumberGenerator.new()
 var asteroids: Array[Asteroid] = []
 var aliens: Array[Alien] = []
 
-var num_asteroids := 50
+var num_asteroids := 0
 var num_aliens := 0
 var phase := 0
 var time := 0
