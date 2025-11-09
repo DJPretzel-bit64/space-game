@@ -30,7 +30,8 @@ func spawn_asteroid():
 	# add the asteroid to our parent (the root node)
 	get_parent().add_child(asteroid)
 	
-	$AsteroidSpawnTimer.wait_time *= 0.995
+	if $AsteroidSpawnTimer.wait_time > 0.25:
+		$AsteroidSpawnTimer.wait_time *= 0.995
 
 func random_unit_vector() -> Vector2:
 	return Vector2.from_angle(rng.randf_range(0, 2 * PI))

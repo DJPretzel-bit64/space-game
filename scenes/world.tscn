@@ -25,6 +25,7 @@ radius = 64.0
 [node name="World" type="Node2D"]
 script = ExtResource("2_rwgxs")
 asteroid_scene = ExtResource("3_4wyf3")
+crater_radius = 30
 
 [node name="DamagedEarth" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_qfnet")
