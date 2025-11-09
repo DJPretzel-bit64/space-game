@@ -1,9 +1,11 @@
 extends Node2D
 
 # define variables needed by this class
-@export var asteroid_spawn_distance: int = 500
+@export var asteroid_spawn_distance: int = 750
 @export var asteroid_scene: PackedScene
 @export var crater_radius: int = 15
+
+signal game_over
 
 # get a random number generator
 var rng = RandomNumberGenerator.new()
@@ -23,10 +25,12 @@ func spawn_asteroid():
 	asteroid.position = asteroid_position
 	
 	# set the asteroid's direction (difference between us and the asteoid)
-	asteroid.direction = (position - asteroid.position).normalized()
+	asteroid.direction = (position + random_in_unit_sphere() * ($Earth.texture.get_width() / 2) - asteroid.position).normalized()
 	
 	# add the asteroid to our parent (the root node)
 	get_parent().add_child(asteroid)
+	
+	$AsteroidSpawnTimer.wait_time *= 0.995
 
 func random_unit_vector() -> Vector2:
 	return Vector2.from_angle(rng.randf_range(0, 2 * PI))
@@ -39,14 +43,16 @@ func on_hit(body: Area2D):
 		var asteroid = body.get_parent() as Asteroid
 		asteroid.queue_free()
 		
-		$Camera2D.apply_shake()
+		var camera := get_viewport().get_camera_2d()
+		if camera is CameraShake:
+			camera.apply_shake()
 		
 		hollow_texture(asteroid.position)
 		recompute_collision_shape()
 
 func on_lose_hit(body: Area2D):
 	if body.get_parent() is Asteroid:
-		get_tree().paused = true
+		emit_signal("game_over")
 
 func hollow_texture(crater_position: Vector2):
 	var image: Image = $Earth.texture.get_image()
@@ -148,17 +154,3 @@ func polygon_area(polygon: PackedVector2Array) -> float:
 		area += polygon[q].cross(polygon[p])
 	
 	return abs(area) * 0.5
-
-func polygon_centroid(polygon: PackedVector2Array) -> Vector2:
-	var centroid = Vector2()
-	var area = polygon_area(polygon)
-	var num_vertices = polygon.size()
-	var factor = 0.0
-	
-	for q in range(num_vertices):
-		var p = (q - 1 + num_vertices) % num_vertices
-		factor = polygon[q].cross(polygon[p])
-		centroid += (polygon[p] + polygon[q]) * factor
-	
-	centroid /= (6.0 * area)
-	return abs(centroid)
