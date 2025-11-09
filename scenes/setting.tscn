@@ -4,6 +4,7 @@
 
 [sub_resource type="Theme" id="Theme_sjyvh"]
 Button/colors/font_hover_color = Color(0.09484572, 0.5272935, 0.52836305, 1)
+Label/font_sizes/font_size = 35
 
 [node name="Setting" type="Control"]
 layout_mode = 3
@@ -25,6 +26,7 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 theme = SubResource("Theme_sjyvh")
+theme_override_constants/separation = 8
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -35,11 +37,20 @@ layout_mode = 2
 value = 100.0
 tick_count = 20
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer"]
+[node name="Mute" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Mute"
 
-[node name="Resolution" type="OptionButton" parent="MarginContainer/VBoxContainer"]
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_stretch_ratio = 1.1
+
+[node name="Window Mode" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Window Mode"
+
+[node name="WindowMode2" type="OptionButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 item_count = 4
 popup/item_0/text = "Full-screen"
@@ -60,5 +71,5 @@ text = "BACK"
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/Resolution" to="." method="_on_resolution_item_selected"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/WindowMode2" to="." method="_on_resolution_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
