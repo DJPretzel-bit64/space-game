@@ -5,3 +5,5 @@
 [node name="Audio" type="AudioStreamPlayer"]
 process_mode = 3
 script = ExtResource("1_1qhh7")
+
+[connection signal="finished" from="." to="." method="play_level_music"]
