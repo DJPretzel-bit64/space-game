@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3r7rykyto3k8"]
+[gd_scene load_steps=13 format=3 uid="uid://b3r7rykyto3k8"]
 
 [ext_resource type="Texture2D" uid="uid://csh3nkhhgj7bk" path="res://textures/Earth.png" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://8q1kksnv1mxd" path="res://scripts/world.gd" id="2_rwgxs"]
 [ext_resource type="PackedScene" uid="uid://c2x6hn4eqchwo" path="res://scenes/asteroid.tscn" id="3_4wyf3"]
-[ext_resource type="Shader" uid="uid://bi5rr2lqjtbxr" path="res://scripts/damagedEarth.gdshader" id="3_71j4m"]
+[ext_resource type="Shader" path="res://scripts/damagedEarth.gdshader" id="3_71j4m"]
 [ext_resource type="Texture2D" uid="uid://ckv26u223uakp" path="res://textures/Damaged Earth.png" id="3_k0juu"]
-[ext_resource type="Shader" uid="uid://bkhfqnoipqp5r" path="res://scripts/earth.gdshader" id="6_qfnet"]
+[ext_resource type="Shader" path="res://scripts/earth.gdshader" id="6_qfnet"]
 [ext_resource type="PackedScene" uid="uid://00ktt1qpks1b" path="res://scenes/ship.tscn" id="7_i7141"]
+[ext_resource type="AudioStream" uid="uid://bdtfuo58n3tsd" path="res://Music/earthCrumble.wav" id="8_4mrxx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qfnet"]
 shader = ExtResource("3_71j4m")
@@ -25,7 +26,6 @@ radius = 64.0
 
 [node name="World" type="Node2D"]
 script = ExtResource("2_rwgxs")
-asteroid_spawn_distance = null
 asteroid_scene = ExtResource("3_4wyf3")
 crater_radius = 20
 
@@ -54,9 +54,13 @@ shape = SubResource("CircleShape2D_fj7yv")
 shape = SubResource("CircleShape2D_4wyf3")
 
 [node name="Ship" parent="." instance=ExtResource("7_i7141")]
+script = null
 
 [node name="Clock" type="Timer" parent="."]
 autostart = true
+
+[node name="earthCrumbleAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_4mrxx")
 
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="spawn_asteroid"]
 [connection signal="timeout" from="AlienSpawnTimer" to="." method="spawn_alien"]
