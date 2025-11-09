@@ -41,7 +41,9 @@ func on_hit(body: Area2D):
 		var asteroid = body.get_parent() as Asteroid
 		asteroid.queue_free()
 		
-		$Camera2D.apply_shake()
+		var camera := get_viewport().get_camera_2d()
+		if camera is CameraShake:
+			camera.apply_shake()
 		
 		hollow_texture(asteroid.position)
 		recompute_collision_shape()
