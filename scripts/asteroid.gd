@@ -21,8 +21,11 @@ func _process(delta):
 	# move in the direction we want to move
 	position += direction * speed * delta
 
+func kill():
+	queue_free()
+
 func hit(area: Area2D):
-	if area.get_parent() is Shield:
+	if area.get_parent() is Shield or area.get_parent() is Bullet:
 		queue_free()
 		
 		emit_signal("blocked")

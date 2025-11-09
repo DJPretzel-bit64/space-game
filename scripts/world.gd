@@ -5,14 +5,17 @@ extends Node2D
 @export var asteroid_scene: PackedScene
 @export var crater_radius: int = 15
 
-signal game_over(asteroids: int, aliens: int)
+signal game_over(asteroids: int, aliens: int, time: int)
 
 # get a random number generator
 var rng = RandomNumberGenerator.new()
 
+var asteroids: Array[Asteroid] = []
+
 var num_asteroids := 0
 var num_aliens := 0
 var phase := 0
+var time := 0
 
 # define a function to spawn asteroids, this is tied to the AsteroidSpawnTimer timeout signal
 func spawn_asteroid():
@@ -36,20 +39,38 @@ func spawn_asteroid():
 	# add the asteroid to our parent (the root node)
 	get_parent().add_child(asteroid)
 	
-	if $AsteroidSpawnTimer.wait_time > 0.4:
-		if phase == 0:
-			$AsteroidSpawnTimer.wait_time *= 0.99
-	elif phase == 0:
-		phase += 1
-		$AsteroidSpawnTimer.wait_time = 0.7
-		$AlienSpawnTimer.start()
+	asteroids.append(asteroid)
+	
+	if phase == 0:
+		$AsteroidSpawnTimer.wait_time *= 0.99
+		if num_asteroids >= 50:
+			phase += 1
+			$AsteroidSpawnTimer.wait_time = 0.7
+			$AlienSpawnTimer.start()
+			$Ship.enable()
+
+func _process(_delta):
+	var min_dist: float = 1000000
+	var closest_asteroid: Asteroid
+	for asteroid in asteroids:
+		if is_instance_valid(asteroid):
+			var dist = asteroid.position.length_squared()
+			if dist < min_dist:
+				min_dist = dist
+				closest_asteroid = asteroid
+	$Ship.set_focus(closest_asteroid)
 
 func spawn_alien():
-	print("OHHHHH NOOOOO!!!! AN ALIEN!!!!!!!")
+	pass
 
 func increment_asteroids():
 	num_asteroids += 1
-	print(num_asteroids)
+
+func increment_aliens():
+	num_aliens += 1
+
+func increment_timer():
+	time += 1
 
 func random_unit_vector() -> Vector2:
 	return Vector2.from_angle(rng.randf_range(0, 2 * PI))
@@ -71,7 +92,7 @@ func on_hit(body: Area2D):
 
 func on_lose_hit(body: Area2D):
 	if body.get_parent() is Asteroid:
-		emit_signal("game_over", num_asteroids, num_aliens)
+		emit_signal("game_over", num_asteroids, num_aliens, time)
 
 func hollow_texture(crater_position: Vector2):
 	var image: Image = $Earth.texture.get_image()
