@@ -22,14 +22,32 @@ func _process(delta):
 	position += direction * speed * delta
 
 func kill():
-	queue_free()
+	speed = 0
+	for child in get_children():
+		if child is Node2D:
+			child.visible = false
+	$Explosion.visible = true
+	$Explosion/AnimationPlayer.play("explosion_animation")
+
+func despawn(anim_name: StringName):
+	if anim_name == "explosion_animation":
+		queue_free()
 
 func hit(area: Area2D):
-	if area.get_parent() is Shield or area.get_parent() is Bullet:
-		queue_free()
+	if area.get_parent() is Shield:
+		kill()
+		
+		emit_signal("blocked")
+		
+		var camera := get_viewport().get_camera_2d()
+		if camera is CameraShake:
+			camera.apply_shake(10)
+	if area.get_parent() is Bullet:
+		kill()
 		
 		emit_signal("blocked")
 		
 		var camera := get_viewport().get_camera_2d()
 		if camera is CameraShake:
 			camera.apply_shake(5)
+	 

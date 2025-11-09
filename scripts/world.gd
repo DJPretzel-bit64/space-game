@@ -94,7 +94,7 @@ func random_in_unit_sphere() -> Vector2:
 func on_hit(body: Area2D):
 	if body.get_parent() is Asteroid:
 		var asteroid = body.get_parent() as Asteroid
-		asteroid.queue_free()
+		asteroid.kill()
 		
 		var camera := get_viewport().get_camera_2d()
 		if camera is CameraShake:
