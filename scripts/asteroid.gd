@@ -7,6 +7,8 @@ var direction: Vector2
 @export var textures: Array[Texture2D]
 @export var speed: float = 250.0
 
+signal blocked
+
 var rng = RandomNumberGenerator.new()
 
 func _ready():
@@ -22,6 +24,8 @@ func _process(delta):
 func hit(area: Area2D):
 	if area.get_parent() is Shield:
 		queue_free()
+		
+		emit_signal("blocked")
 		
 		var camera := get_viewport().get_camera_2d()
 		if camera is CameraShake:

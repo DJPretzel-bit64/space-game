@@ -15,6 +15,7 @@
 [node name="Shield" parent="." instance=ExtResource("2_yqjtg")]
 
 [node name="PauseMenu" parent="." instance=ExtResource("8_vtaks")]
+z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("9_0tnpc")
