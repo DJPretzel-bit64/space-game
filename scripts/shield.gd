@@ -21,3 +21,15 @@ func _process(delta: float):
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		mouse_active = true
+	
+	if (Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) or Input.is_action_just_pressed("fire")) and $BulletCooldown.time_left == 0:
+		var shield_bullet_scene: PackedScene = load("res://scenes/shield_bullet.tscn")
+		var shield_bullet: ShieldBullet = shield_bullet_scene.instantiate()
+		shield_bullet.direction = Vector2.from_angle(rotation)
+		shield_bullet.rotation = rotation
+		add_sibling(shield_bullet)
+		$BulletCooldown.start()
+	
+	var mat = $Shield2D.material
+	if mat is ShaderMaterial:
+		mat.set_shader_parameter("ready", $BulletCooldown.time_left == 0)

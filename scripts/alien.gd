@@ -19,5 +19,9 @@ func _process(delta: float):
 		$DespawnTimer.start()
 		distance += speed * 12 * delta
 
+func hit(area: Area2D):
+	if area.get_parent() is ShieldBullet:
+		queue_free()
+
 func despawn():
 	queue_free()
