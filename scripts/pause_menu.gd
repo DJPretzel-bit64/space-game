@@ -3,6 +3,13 @@ extends Control
 func _ready():
 	$pauseBg.visible = false
 
+func _process(_delta):
+	if Input.is_action_just_pressed("toggle_settings"):
+		if get_tree().paused:
+			_on_resume_pressed()
+		else:
+			_on_pause_pressed()
+
 func _on_pause_pressed():
 	get_tree().paused = true
 	$pauseBg.visible = true

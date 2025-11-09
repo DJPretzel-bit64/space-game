@@ -5,10 +5,14 @@ extends Node2D
 @export var asteroid_scene: PackedScene
 @export var crater_radius: int = 15
 
-signal game_over
+signal game_over(asteroids: int, aliens: int)
 
 # get a random number generator
 var rng = RandomNumberGenerator.new()
+
+var num_asteroids := 0
+var num_aliens := 0
+var phase := 0
 
 # define a function to spawn asteroids, this is tied to the AsteroidSpawnTimer timeout signal
 func spawn_asteroid():
@@ -27,10 +31,25 @@ func spawn_asteroid():
 	# set the asteroid's direction (difference between us and the asteoid)
 	asteroid.direction = (position + random_in_unit_sphere() * ($Earth.texture.get_width() / 2) - asteroid.position).normalized()
 	
+	asteroid.blocked.connect(increment_asteroids)
+	
 	# add the asteroid to our parent (the root node)
 	get_parent().add_child(asteroid)
 	
-	$AsteroidSpawnTimer.wait_time *= 0.995
+	if $AsteroidSpawnTimer.wait_time > 0.4:
+		if phase == 0:
+			$AsteroidSpawnTimer.wait_time *= 0.99
+	elif phase == 0:
+		phase += 1
+		$AsteroidSpawnTimer.wait_time = 0.7
+		$AlienSpawnTimer.start()
+
+func spawn_alien():
+	print("OHHHHH NOOOOO!!!! AN ALIEN!!!!!!!")
+
+func increment_asteroids():
+	num_asteroids += 1
+	print(num_asteroids)
 
 func random_unit_vector() -> Vector2:
 	return Vector2.from_angle(rng.randf_range(0, 2 * PI))
@@ -52,7 +71,7 @@ func on_hit(body: Area2D):
 
 func on_lose_hit(body: Area2D):
 	if body.get_parent() is Asteroid:
-		emit_signal("game_over")
+		emit_signal("game_over", num_asteroids, num_aliens)
 
 func hollow_texture(crater_position: Vector2):
 	var image: Image = $Earth.texture.get_image()

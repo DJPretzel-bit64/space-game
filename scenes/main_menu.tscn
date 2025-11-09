@@ -1,6 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://l3h1w4gggpe6"]
+[gd_scene load_steps=6 format=3 uid="uid://l3h1w4gggpe6"]
 
 [ext_resource type="Script" uid="uid://b2568j74aywje" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+[ext_resource type="PackedScene" uid="uid://c02kjvske2c8q" path="res://scenes/background.tscn" id="2_ekxnf"]
+[ext_resource type="Theme" uid="uid://dw8ljsikofh2f" path="res://textures/gameTheme.tres" id="3_bqqt6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6cm7"]
 bg_color = Color(0.25013205, 0.28362778, 0.30826032, 1)
@@ -28,6 +30,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_l6cm7")
 
+[node name="Background" parent="." instance=ExtResource("2_ekxnf")]
+position = Vector2(603, 455)
+
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
 offset_right = 1200.0
@@ -46,6 +51,7 @@ theme = SubResource("Theme_vue75")
 
 [node name="MainButtons" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
+theme = ExtResource("3_bqqt6")
 theme_override_constants/separation = 20
 
 [node name="Play" type="Button" parent="CenterContainer/MainButtons"]
@@ -63,6 +69,11 @@ text = "SETTINGS"
 layout_mode = 2
 theme_override_font_sizes/font_size = 70
 text = "CREDITS"
+
+[node name="Quit" type="Button" parent="CenterContainer/MainButtons"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "QUIT"
 
 [node name="CreditsMenu" type="VBoxContainer" parent="CenterContainer"]
 visible = false
@@ -85,10 +96,12 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+theme = ExtResource("3_bqqt6")
 theme_override_font_sizes/font_size = 60
 text = "BACK"
 
 [connection signal="pressed" from="CenterContainer/MainButtons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="CenterContainer/MainButtons/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="CenterContainer/MainButtons/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="CenterContainer/MainButtons/Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CenterContainer/CreditsMenu/Back" to="." method="_on_back_pressed"]
