@@ -2,7 +2,7 @@ class_name Shield
 
 extends Node2D
 
-@export var rad_speed: float = 10.0
+@export var rad_speed: float = 20.0
 var mouse_active := true
 
 func _process(delta: float):
