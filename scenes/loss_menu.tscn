@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk07upqrfomg4"]
+
+[sub_resource type="Theme" id="Theme_eahrr"]
+Label/font_sizes/font_size = 50
+
+[node name="LossMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="."]
+custom_minimum_size = Vector2(1200, 0)
+layout_mode = 0
+offset_right = 1200.0
+offset_bottom = 205.0
+theme = SubResource("Theme_eahrr")
+theme_override_font_sizes/font_size = 150
+text = "GAME OVER!"
+horizontal_alignment = 1
+
+[node name="SurvivalTimeStatistics" type="Label" parent="Title"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 0
+offset_left = 50.0
+offset_top = 300.0
+offset_right = 650.0
+offset_bottom = 369.0
+theme_override_font_sizes/font_size = 50
+text = "Survival Time:"
+
+[node name="DamageStatistic" type="Label" parent="Title"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 400.0
+offset_right = 634.0
+offset_bottom = 469.0
+text = "Damage from Asteroids:"
