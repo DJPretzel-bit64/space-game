@@ -53,7 +53,11 @@ shape = SubResource("CircleShape2D_4wyf3")
 
 [node name="Ship" parent="." instance=ExtResource("7_i7141")]
 
+[node name="Clock" type="Timer" parent="."]
+autostart = true
+
 [connection signal="timeout" from="AsteroidSpawnTimer" to="." method="spawn_asteroid"]
 [connection signal="timeout" from="AlienSpawnTimer" to="." method="spawn_alien"]
 [connection signal="area_entered" from="Area2D" to="." method="on_hit"]
 [connection signal="area_entered" from="LoseArea" to="." method="on_lose_hit"]
+[connection signal="timeout" from="Clock" to="." method="increment_timer"]
