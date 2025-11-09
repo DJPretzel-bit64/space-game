@@ -13,7 +13,7 @@ var rng = RandomNumberGenerator.new()
 
 func _ready():
 	$AsteroidSprite.texture = textures[rng.randi_range(0, textures.size() - 1)]
-	rotation = randf_range(0, 2 * PI)
+	look_at(Vector2.ZERO)
 	speed *= rng.randf_range(0.5, 1.5 )
 
 # function to update every frame
