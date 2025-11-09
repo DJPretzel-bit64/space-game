@@ -25,12 +25,14 @@ theme_override_font_sizes/font_size = 18
 text = "Welcome! 
 You have been tasked to control a shield to protect Earth from a storm of meteors.
 You can use your mouse or the arrow keys to protect Earth, whichever is most convient for you. 
-As you get better and keep Earth alive longer, you will get an assistance, automatic ship that will aid you in your journey.
-See how long you can keep Earth intact and test your reflexes.
+As you get better and keep Earth alive longer, you will get an assistant, automatic ship that will aid you in your journey.
+You will also gain the ability to shoot beams at UFOs to take them down. 
+You can pause at any time using the pause button at the top left, or by pressing the escape key.
+See how long you can keep Earth intact and test your reflexes, but be warned, once the middle of the Earth is reached,
+its game over.
 
 Good Luck!
-
-PS: Watch out for the UFOs"
+"
 
 [node name="backBtn" type="Button" parent="."]
 offset_left = 44.0
