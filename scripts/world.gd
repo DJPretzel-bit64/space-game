@@ -5,6 +5,8 @@ extends Node2D
 @export var asteroid_scene: PackedScene
 @export var crater_radius: int = 15
 
+signal game_over
+
 # get a random number generator
 var rng = RandomNumberGenerator.new()
 
@@ -50,7 +52,7 @@ func on_hit(body: Area2D):
 
 func on_lose_hit(body: Area2D):
 	if body.get_parent() is Asteroid:
-		get_tree().paused = true
+		emit_signal("game_over")
 
 func hollow_texture(crater_position: Vector2):
 	var image: Image = $Earth.texture.get_image()
@@ -86,10 +88,6 @@ func recompute_collision_shape():
 	var largestIndex := 0
 	
 	var collision_list: Array[CollisionPolygon2D] = []
-	
-	if polygons.size() == 0:
-		get_tree().paused = true
-		return
 	
 	for i in range(polygons.size()):
 		var my_collision = CollisionPolygon2D.new()
@@ -156,17 +154,3 @@ func polygon_area(polygon: PackedVector2Array) -> float:
 		area += polygon[q].cross(polygon[p])
 	
 	return abs(area) * 0.5
-
-func polygon_centroid(polygon: PackedVector2Array) -> Vector2:
-	var centroid = Vector2()
-	var area = polygon_area(polygon)
-	var num_vertices = polygon.size()
-	var factor = 0.0
-	
-	for q in range(num_vertices):
-		var p = (q - 1 + num_vertices) % num_vertices
-		factor = polygon[q].cross(polygon[p])
-		centroid += (polygon[p] + polygon[q]) * factor
-	
-	centroid /= (6.0 * area)
-	return abs(centroid)
