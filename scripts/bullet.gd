@@ -3,7 +3,7 @@ class_name Bullet
 extends Node2D
 
 var direction: Vector2 = Vector2()
-var speed: float = 1000.0
+@export var speed: float = 1000.0
 
 func _process(delta):
 	position += direction * speed * delta

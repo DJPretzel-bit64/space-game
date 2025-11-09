@@ -1,51 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://ce8eoyybqm26d"]
+[gd_scene load_steps=5 format=3 uid="uid://ce8eoyybqm26d"]
 
 [ext_resource type="Script" uid="uid://bxr53nqs5wju5" path="res://scripts/shield.gd" id="1_ohv3a"]
 [ext_resource type="Texture2D" uid="uid://b0o5w5cuet1bh" path="res://textures/Shield.png" id="1_vtru8"]
-[ext_resource type="Texture2D" uid="uid://db86b6iddsr1r" path="res://textures/beam1.png" id="3_gsp1a"]
-[ext_resource type="Texture2D" uid="uid://cx7ai2g2ta0r4" path="res://textures/beam2.png" id="4_pvu10"]
+[ext_resource type="Shader" uid="uid://86apyd4bvyet" path="res://scripts/shield.gdshader" id="2_e3gf5"]
 
-[sub_resource type="Animation" id="Animation_hbtow"]
-resource_name = "beamAnimation"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.23333333),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("3_gsp1a"), ExtResource("4_pvu10")]
-}
-
-[sub_resource type="Animation" id="Animation_tf5mt"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("3_gsp1a")]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_xnywj"]
-_data = {
-&"RESET": SubResource("Animation_tf5mt"),
-&"beamAnimation": SubResource("Animation_hbtow")
-}
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gsp1a"]
+shader = ExtResource("2_e3gf5")
+shader_parameter/ready = true
 
 [node name="Shield" type="Node2D"]
 script = ExtResource("1_ohv3a")
 
 [node name="Shield2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_gsp1a")
 position = Vector2(74, 0.9999924)
 rotation = 0.7853982
 scale = Vector2(0.05, 0.05)
@@ -56,12 +23,6 @@ texture = ExtResource("1_vtru8")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 polygon = PackedVector2Array(95, -15, 72, -50, 68, 61, 92, 30)
 
-[node name="shieldBeam" type="Sprite2D" parent="."]
-position = Vector2(-62.999985, 144.99998)
-scale = Vector2(0.62, 0.56)
-texture = ExtResource("3_gsp1a")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="shieldBeam"]
-libraries = {
-&"": SubResource("AnimationLibrary_xnywj")
-}
+[node name="BulletCooldown" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
