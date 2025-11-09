@@ -28,7 +28,7 @@ func kill():
 			child.visible = false
 	$Explosion.visible = true
 	$Explosion/AnimationPlayer.play("explosion_animation")
-	$/root/Asteroid/ImpactAudio.play()
+	$ImpactAudio.play()
 
 func despawn(anim_name: StringName):
 	if anim_name == "explosion_animation":
