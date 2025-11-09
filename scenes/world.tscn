@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3r7rykyto3k8"]
+[gd_scene load_steps=11 format=3 uid="uid://b3r7rykyto3k8"]
 
 [ext_resource type="Texture2D" uid="uid://csh3nkhhgj7bk" path="res://textures/Earth.png" id="1_4wyf3"]
 [ext_resource type="Script" uid="uid://8q1kksnv1mxd" path="res://scripts/world.gd" id="2_rwgxs"]
@@ -6,7 +6,6 @@
 [ext_resource type="Shader" uid="uid://bi5rr2lqjtbxr" path="res://scripts/damagedEarth.gdshader" id="3_71j4m"]
 [ext_resource type="Texture2D" uid="uid://ckv26u223uakp" path="res://textures/Damaged Earth.png" id="3_k0juu"]
 [ext_resource type="Shader" uid="uid://bkhfqnoipqp5r" path="res://scripts/earth.gdshader" id="6_qfnet"]
-[ext_resource type="Script" uid="uid://b4iw35bldj3fj" path="res://scripts/camera_2d.gd" id="7_i7141"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qfnet"]
 shader = ExtResource("3_71j4m")
@@ -34,9 +33,6 @@ texture = ExtResource("3_k0juu")
 [node name="Earth" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_i7141")
 texture = ExtResource("1_4wyf3")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-script = ExtResource("7_i7141")
 
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
 autostart = true

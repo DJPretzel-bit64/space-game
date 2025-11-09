@@ -1,11 +1,16 @@
-extends Node2D
+extends Control
 
+func _ready():
+	$pauseBg.visible = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _on_pause_pressed():
+	get_tree().paused = true
+	$pauseBg.visible = true
 
+func _on_resume_pressed():
+	get_tree().paused = false
+	$pauseBg.visible = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_menu_pressed():
+	print("exit")
+	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
