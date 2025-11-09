@@ -20,3 +20,7 @@ func _on_credits_pressed() -> void:
 func _on_back_pressed() -> void:
 	$CenterContainer/CreditsMenu.visible = false
 	$CenterContainer/MainButtons.visible = true
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()
