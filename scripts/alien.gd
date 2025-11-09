@@ -8,6 +8,8 @@ var rot_speed: float = 250
 var speed = 30
 var retreat = false
 
+signal killed
+
 func _process(delta: float):
 	$Sprite2D.position = Vector2.from_angle(rotation) * distance
 	$Sprite2D.rotation = rotation + PI / 2
@@ -22,6 +24,7 @@ func _process(delta: float):
 
 func hit(area: Area2D):
 	if area.get_parent() is ShieldBullet:
+		emit_signal("killed")
 		queue_free()
 
 func despawn():

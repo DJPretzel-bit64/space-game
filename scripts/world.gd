@@ -74,6 +74,7 @@ func spawn_alien():
 	var alien: Alien = alien_scene.instantiate()
 	$alienAudio.play()
 	alien.rotation = aliens.size() * PI / 6
+	alien.killed.connect(increment_aliens)
 	add_sibling(alien)
 	aliens.append(alien)
 
