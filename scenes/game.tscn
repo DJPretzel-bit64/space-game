@@ -1,223 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://ct556i38os2k1"]
+[gd_scene load_steps=9 format=3 uid="uid://ct556i38os2k1"]
 
+[ext_resource type="Script" uid="uid://bwp3ts86dncmf" path="res://scripts/game.gd" id="1_gee14"]
 [ext_resource type="PackedScene" uid="uid://c02kjvske2c8q" path="res://scenes/background.tscn" id="1_iywne"]
 [ext_resource type="PackedScene" uid="uid://b3r7rykyto3k8" path="res://scenes/world.tscn" id="1_uwrxv"]
-[ext_resource type="Script" path="res://scripts/background.gd" id="2_u5sy4"]
-[ext_resource type="PackedScene" path="res://scenes/shield.tscn" id="2_yqjtg"]
-[ext_resource type="Texture2D" uid="uid://bda28cvjpnp6u" path="res://textures/stars1.png" id="5_dinhu"]
-[ext_resource type="Texture2D" uid="uid://cj0x1jvhcx5db" path="res://textures/stars2.png" id="8_kvuet"]
-[ext_resource type="PackedScene" path="res://scenes/pause_menu.tscn" id="8_vtaks"]
-[ext_resource type="Script" path="res://scripts/camera.gd" id="9_0tnpc"]
-[ext_resource type="Texture2D" uid="uid://13oa53ybe2ac" path="res://textures/stars3.png" id="9_trtic"]
+[ext_resource type="PackedScene" uid="uid://cxb6mbx0owd4h" path="res://scenes/shield.tscn" id="2_yqjtg"]
+[ext_resource type="PackedScene" uid="uid://dp8jrywwr3cj7" path="res://scenes/game_over.tscn" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://cwayn25pk8dqf" path="res://scenes/pause_menu.tscn" id="8_vtaks"]
+[ext_resource type="Script" uid="uid://b4iw35bldj3fj" path="res://scripts/camera.gd" id="9_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://ycrrve8fsttx" path="res://scenes/survival_timer.tscn" id="10_vtaks"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u5sy4"]
-load_path = "res://.godot/imported/background3.png-1e0e2e0eba3ca848fb05221d681b1adc.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gee14"]
-load_path = "res://.godot/imported/background1.png-9e721fca793feb3627d8011e02138ee0.ctex"
-
-[sub_resource type="Animation" id="Animation_vtaks"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("CompressedTexture2D_gee14")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_kvpfn"]
-resource_name = "background_switch"
-length = 20.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("5_dinhu")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 15.01, 20),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.78431374), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_trtic"]
-_data = {
-&"RESET": SubResource("Animation_vtaks"),
-&"background_switch_1": SubResource("Animation_kvpfn")
-}
-
-[sub_resource type="GDScript" id="GDScript_0tnpc"]
-script/source = "extends AnimationPlayer
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass
-#		
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vtaks"]
-load_path = "res://.godot/imported/background2.png-5160f303c437d4ad9314658f8871d2b3.ctex"
-
-[sub_resource type="Animation" id="Animation_u5sy4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("CompressedTexture2D_vtaks")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.93333334)]
-}
-
-[sub_resource type="Animation" id="Animation_p57ef"]
-resource_name = "background_switch_2"
-length = 20.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.01),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [ExtResource("8_kvuet"), SubResource("CompressedTexture2D_vtaks")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2, 14.99, 20),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.03137255), Color(1, 1, 1, 0.93333334), Color(1, 1, 1, 0.93333334), Color(1, 1, 1, 0.015686275)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gee14"]
-_data = {
-&"RESET": SubResource("Animation_u5sy4"),
-&"background_switch_2": SubResource("Animation_p57ef")
-}
-
-[sub_resource type="Animation" id="Animation_dinhu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [SubResource("CompressedTexture2D_u5sy4")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.972549)]
-}
-
-[sub_resource type="Animation" id="Animation_0tnpc"]
-resource_name = "background_switch_3"
-length = 20.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("9_trtic")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2, 14.98, 20),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.023529412), Color(1, 1, 1, 0.972549), Color(1, 1, 1, 0.972549), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kvuet"]
-_data = {
-&"RESET": SubResource("Animation_dinhu"),
-&"background_switch_3": SubResource("Animation_0tnpc")
-}
-
 [node name="Game" type="Node2D"]
+script = ExtResource("1_gee14")
 
 [node name="Background" parent="." instance=ExtResource("1_iywne")]
 
@@ -232,3 +25,8 @@ z_index = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("9_0tnpc")
+
+[node name="GameOver" parent="." instance=ExtResource("7_u5sy4")]
+visible = false
+
+[connection signal="game_over" from="world" to="." method="game_over"]
