@@ -1,3 +1,4 @@
+
 class_name Alien
 
 extends Node2D
