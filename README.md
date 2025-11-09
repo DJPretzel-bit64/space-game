@@ -9,8 +9,8 @@ Music attributions:
 - Intro Music "Dreadful Whispers":\
   Music by: bensound.com\
   License code: 83MZ9JOTQTLVQ4OA\
-  Artist: : FoePound\
+  Artist: : FoePound
 - Level Music "Boom Baddie":\
-  https://uppbeat.io/track/konstantin-garbuzyuk/boom-baddie
+  https://uppbeat.io/track/konstantin-garbuzyuk/boom-baddie\
   Artist: Konstantin Garbuzyuk
 
