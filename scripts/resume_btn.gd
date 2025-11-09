@@ -12,6 +12,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func _on_pressed() -> void:
+	print("resume pressed")
 	pauseMenu.hide()
 	get_tree().paused = false
 	
