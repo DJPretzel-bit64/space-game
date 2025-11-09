@@ -12,8 +12,8 @@ signal blocked
 var rng = RandomNumberGenerator.new()
 
 func _ready():
-	$Sprite2D.texture = textures[rng.randi_range(0, textures.size() - 1)]
-	rotation = randf_range(0, 2 * PI)
+	$AsteroidSprite.texture = textures[rng.randi_range(0, textures.size() - 1)]
+	look_at(Vector2.ZERO)
 	speed *= rng.randf_range(0.5, 1.5 )
 
 # function to update every frame
@@ -21,8 +21,11 @@ func _process(delta):
 	# move in the direction we want to move
 	position += direction * speed * delta
 
+func kill():
+	queue_free()
+
 func hit(area: Area2D):
-	if area.get_parent() is Shield:
+	if area.get_parent() is Shield or area.get_parent() is Bullet:
 		queue_free()
 		
 		emit_signal("blocked")
